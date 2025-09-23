@@ -1,6 +1,7 @@
 import React from "react";
 import Lembrete from "./Lembrete";
 import LembreteEntrada from "./LembreteEntrada";
+import LembreteLista from "./LembreteLista";
 
 class App extends React.Component {
 
@@ -50,11 +51,14 @@ class App extends React.Component {
         </div>
 
         <div className="row">
-          {lembretes.map(lembrete => (
+          <LembreteLista />
+          
+          {/* {lembretes.map(lembrete => (
             <div className="col-12 col-lg-6 col-xxl-3">
               <Lembrete descricao={lembrete.descricao}/>
             </div>
-          ))}
+          ))} */}
+
         </div>
       </div>
     )
