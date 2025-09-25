@@ -50,15 +50,10 @@ class App extends React.Component {
           />
         </div>
 
-        <div className="row">
-          <LembreteLista />
-          
-          {/* {lembretes.map(lembrete => (
-            <div className="col-12 col-lg-6 col-xxl-3">
-              <Lembrete descricao={lembrete.descricao}/>
-            </div>
-          ))} */}
-
+        <div>
+          {lembretes.map(lembrete => (
+            <Lembrete descricao={lembrete.descricao}/>
+          ))}
         </div>
       </div>
     )
