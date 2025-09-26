@@ -1,7 +1,6 @@
 import React from "react";
 import Lembrete from "./Lembrete";
 import LembreteEntrada from "./LembreteEntrada";
-import LembreteLista from "./LembreteLista";
 
 class App extends React.Component {
 
@@ -18,13 +17,22 @@ class App extends React.Component {
     const descricao = this.state.texto
 
     const novo = {
-      descricao
+      descricao,
+      iconeRemover: "fa-solid fa-trash"
     }
 
-    this.setState({
-      lembretes: [novo].concat(this.state.lembretes),
-      texto: ""
-    })
+    const ListaOriginal = this.state.lembretes
+      const copia = [novo]
+      for (let i = 0; i < ListaOriginal.length; i++) {
+        copia.push(ListaOriginal[i])
+      }
+
+    this.setState({ lembretes: copia, texto: "" })
+  }
+
+  removerLembrete = (indexParaRemover) => {
+    const novaLista = this.state.lembretes.filter((_, i) => i !== indexParaRemover)
+    this.setState({ lembretes: novaLista })
   }
 
   render() {
@@ -46,13 +54,15 @@ class App extends React.Component {
             value={texto}
             onChange={this.onChange}
             textoOK="Ok"
-            funcaoOK={this.adicionarLembrete}
-          />
+            funcaoOK={this.adicionarLembrete}/>
         </div>
 
         <div>
-          {lembretes.map(lembrete => (
-            <Lembrete descricao={lembrete.descricao}/>
+          {lembretes.map((lembrete, index) => (
+            <Lembrete
+            descricao={lembrete.descricao}
+            iconeRemover={lembrete.iconeRemover}
+            onRemover={() => this.removerLembrete(index)}/>
           ))}
         </div>
       </div>
