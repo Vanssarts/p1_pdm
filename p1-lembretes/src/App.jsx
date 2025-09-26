@@ -18,7 +18,9 @@ class App extends React.Component {
 
     const novo = {
       descricao,
-      iconeRemover: "fa-solid fa-trash"
+      favorito: false,
+      iconeRemover: "fa-solid fa-trash",
+      iconeFavoritar: "fa-solid fa-star"
     }
 
     const ListaOriginal = this.state.lembretes
@@ -33,6 +35,24 @@ class App extends React.Component {
   removerLembrete = (indexParaRemover) => {
     const novaLista = this.state.lembretes.filter((_, i) => i !== indexParaRemover)
     this.setState({ lembretes: novaLista })
+  }
+
+  toggleFavorito = (index) => {
+    const atual = this.state.lembretes;
+    const favoritoInvertido = [];
+    for (let i = 0; i < atual.length; i++) {
+      if (i === index) {
+        const item = atual[i];
+        favoritoInvertido.push({
+          descricao: item.descricao,
+          ...item,
+          favorito: !item.favorito,
+        });
+      } else {
+        favoritoInvertido.push(atual[i]);
+      }
+    }
+    this.setState({lembretes: favoritoInvertido})
   }
 
   render() {
@@ -61,7 +81,10 @@ class App extends React.Component {
           {lembretes.map((lembrete, index) => (
             <Lembrete
             descricao={lembrete.descricao}
+            favorito={lembrete.favorito}
             iconeRemover={lembrete.iconeRemover}
+            iconeFavoritar={lembrete.iconeFavoritar}
+            onToggleFavoritar={() => this.toggleFavorito(index)}
             onRemover={() => this.removerLembrete(index)}/>
           ))}
         </div>
